@@ -1,0 +1,56 @@
+<Button>:
+    font_size: 40
+    color: 0, 0, 0, 1
+    background_color: 238/255, 63/255, 108/255, 1
+<MyGrid>:
+
+    name: name
+
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+
+        GridLayout:
+            rows:3
+
+            Label:
+                text: "Input Commands"
+                font_size: 40
+
+                background_color: (0.95, 0.7, 0.8196, 50)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                color: (0, 0, 0, 1)
+                italic: True
+
+            TextInput:
+                id: name
+                multiline:False
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                background_color: (0.95, 0.7, 0.8196, 50)
+
+            Label:
+                text: ""
+                font_size:
+
+                background_color: (0.95, 0.7, 0.8196, 50)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                color: (0, 0, 0, 1)
+                bold: True
+                italic: True
+
+        Button:
+            text:"Submit"
+            on_press: root.btn()
