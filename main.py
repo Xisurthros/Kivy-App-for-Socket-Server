@@ -5,23 +5,18 @@ from kivy.properties import ObjectProperty
 
 
 class MyGrid(Widget):
-    try:
-        HEADER_LENGTH = 10
-        IP = '127.0.0.1'
-        PORT = 5000
+    HEADER_LENGTH = 10
+    IP = '192.168.1.71'
+    PORT = 5000
 
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect((IP, PORT))
-        client_socket.setblocking(False)
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect((IP, PORT))
+    client_socket.setblocking(False)
 
-        name = ObjectProperty(None)
-        email = ObjectProperty(None)
-        
-    except:
-        pass
+    name = ObjectProperty(None)
+    email = ObjectProperty(None)
 
     def btn(self):
-        # print(self.name.text)
         message = self.name.text
         if message:
             message = message.encode('utf-8')
@@ -29,10 +24,15 @@ class MyGrid(Widget):
             self.client_socket.send(message_header + message)
         try:
             while True:
+                username_header = self.client_socket.recv(self.HEADER_LENGTH)
+                if not len(username_header):
+                    print('Connection closed by the server')
+                username_length = int(username_header.decode('utf-8').strip())
+                username = self.client_socket.recv(username_length).decode('utf-8')
                 message_header = self.client_socket.recv(self.HEADER_LENGTH)
                 message_length = int(message_header.decode('utf-8').strip())
                 message = self.client_socket.recv(message_length).decode('utf-8')
-                # print(f'{message_length}')
+
         except:
             pass
         self.name.text = ""
