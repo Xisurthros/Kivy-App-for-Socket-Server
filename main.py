@@ -6,8 +6,8 @@ from kivy.properties import ObjectProperty
 
 class MyGrid(Widget):
     HEADER_LENGTH = 10
-    IP = '192.168.1.71'
-    PORT = 5000
+    IP = # Your Local Host/ LAN IP
+    PORT = # Your choice of PORT
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((IP, PORT))
